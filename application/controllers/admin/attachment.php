@@ -1,6 +1,5 @@
 <?php if ( ! defined('IN_DiliCMS')) exit('No direct script access allowed');
 
-
 class Attachment extends Dili_Controller {
 	
 	function __construct()
@@ -10,8 +9,9 @@ class Attachment extends Dili_Controller {
 	
 	function _upload_post()
 	{
+		
 		$this->load->database();
-		$this->load->library('dili/plugin_manager');
+		//$this->load->library('dili/plugin_manager');
 		$session_id = $this->input->post('hash');
 		$session = $this->db->where('session_id',$session_id)->get('dili_sessions')->row();
 		$status = "ok";
@@ -42,14 +42,14 @@ class Attachment extends Dili_Controller {
 						$target_file = $target_path.'/'.$data['name'].'.'.$data['type'];
 						if(! $this->platform->file_upload($_FILES['Filedata']['tmp_name'],$target_file))
 						{
-							$status = "fail";	
+							$status = "fail";
 						}
 						else
 						{
 							$data['image'] = (in_array($data['type'],array('jpg','gif','png','jpeg','bmp'))) ? 1 : 0;
 							$this->db->insert('dili_attachments',$data);
 							$response = $this->db->insert_id().'|'.$data['realname'].'|'.$data['name'].'|'.$data['image'].'|'.$data['folder'].'|'.$data['type'];
-							$this->plugin_manager->trigger_attachment($target_file);
+							//$this->plugin_manager->trigger_attachment($target_file);
 						}
 					}
 				}
@@ -63,8 +63,7 @@ class Attachment extends Dili_Controller {
 		{
 			$status = "fail";	
 		}
-		echo '<return><status>'.$status.'</status><proID>'. $this->input->post('proid') .'</proID><data>' . $response . '</data></return>';
-		
+		echo '<?xml version="1.0" encoding="UTF-8"?><return><status>'.$status.'</status><proID>'. $this->input->post('proid') .'</proID><data>' . $response . '</data></return>';
 	}
 	
 	function config()
@@ -111,6 +110,4 @@ class Attachment extends Dili_Controller {
 					</config>
 				</parameter>';
 	}
-	 	
-	
 }

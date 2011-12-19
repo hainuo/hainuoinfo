@@ -111,7 +111,7 @@ if ( ! function_exists('create_captcha'))
 			$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 			$str = '';
-			for ($i = 0; $i < 8; $i++)
+			for ($i = 0; $i < 4; $i++)//随机验证码位数  默认为8此处修改为4  by hainuo
 			{
 				$str .= substr($pool, mt_rand(0, strlen($pool) -1), 1);
 			}
@@ -148,7 +148,8 @@ if ( ! function_exists('create_captcha'))
 
 		$bg_color		= imagecolorallocate ($im, 255, 255, 255);
 		$border_color	= imagecolorallocate ($im, 153, 102, 102);
-		$text_color		= imagecolorallocate ($im, 204, 153, 153);
+		//$text_color		= imagecolorallocate ($im, 204, 153, 153);
+		$text_color		= imagecolorallocate ($im, 1, 18, 33);//因为原图形的文字不明显特修改明显一点 by hainuo
 		$grid_color		= imagecolorallocate($im, 255, 182, 182);
 		$shadow_color	= imagecolorallocate($im, 255, 240, 240);
 
@@ -193,6 +194,7 @@ if ( ! function_exists('create_captcha'))
 			$font_size = 5;
 			$x = rand(0, $img_width/($length/3));
 			$y = 0;
+			$x = rand(4,10);//修正文字位置防止只生成一半
 		}
 		else
 		{
@@ -205,9 +207,10 @@ if ( ! function_exists('create_captcha'))
 		{
 			if ($use_font == FALSE)
 			{
-				$y = rand(0 , $img_height/2);
+				$y = rand(0 , $img_height/2-3);//修改此处防止文字溢出 by hainuo
 				imagestring($im, $font_size, $x, $y, substr($word, $i, 1), $text_color);
 				$x += ($font_size*2);
+				//var_dump($x,$y);
 			}
 			else
 			{

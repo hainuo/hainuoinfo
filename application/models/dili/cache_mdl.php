@@ -200,6 +200,12 @@
 		}
 		
 		
+		function update_oa_cache()
+		{
+			$data = $this->db->get('dili_oa_settings')->row_array();
+			$this->platform->cache_write(FCPATH.'settings/oa'.EXT, $this->_arrayeval("setting",$data));	
+		}		
+		
 		function update_plugin_cache()
 		{
 			$cached_plugins = $model_plugins = $result_plugins = array();

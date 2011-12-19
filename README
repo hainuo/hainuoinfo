@@ -1,7 +1,7 @@
 欢迎使用DiliCMS,DiliCMS是无业务逻辑的，面向CodeIgniter开发者的自由灵活的系统，致力于为开发者提供最简单，灵活，实用的后台CMS系统。
 
 安装方法
-	普通平台
+	普通平台 
 		1.新建数据库，并导入dilicms2.sql
 		2.配置application/config/database.php
 		3.运行http://your-url/index.php/initialize,初始化系统
@@ -18,8 +18,6 @@
 					);
 		4.运行http://your-url/index.php/initialize,初始化系统
 		5.欢迎来到DiliCMS的世界
-
-	默认帐号为：admin,密码为:dilicms
 
 更新日志
 

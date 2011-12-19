@@ -11,7 +11,7 @@
 		function switch_theme($switcher = 'on' , $theme = 'default' ,$path = 'templates/'){
 			if($switcher == 'on')
 			{
-				$this->_ci_view_paths = array(FCPATH.$path.$theme.'/'	=> TRUE);
+				$this->_ci_view_paths = array(FCPATH.$path.$theme.'/'	=> TRUE);//默认将模板文件夹更改问templates下的default文件夹中
 			}
 		}
 			

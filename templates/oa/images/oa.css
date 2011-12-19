@@ -1,0 +1,58 @@
+﻿@charset "utf-8";
+
+#oa_basic {
+	border: 1px solid red;
+}
+
+td {
+	width: 100px;
+	line-height: 30px;
+	border: 1px dashed #ccc;
+	text-align: center;
+}
+
+td input {
+	width: 90px;
+}
+
+table {
+	margin: 5px;
+	border: 1px dashed #ccc;
+}
+
+td.text {
+	text-align: right;
+	padding-right: 5px;
+}
+
+input#date {
+	background:
+		url("http://oa.hainuo.info/admincp/default/js/datePicker/skin/datePicker.gif")
+		no-repeat scroll right center #FFFFFF;
+	border: 1px solid #999999;
+	height: 20px;
+}
+
+td input#chucheng,td input#danjia {
+	width: 50px;
+	text-align: right;
+}
+
+td input#jine {
+	width: 80px;
+}
+
+div.admin_right {
+	height: 500px;
+	overflow-y: auto;
+}
+
+div.error {
+	color: red;
+}
+table th{
+	padding:0px 5px;
+	border:1px dashed #ccc;
+}
+div.car{text-align:left;color:blue;}
+div.car span.yunfei{margin:opx 5px;color:#666}
