@@ -5,6 +5,8 @@ class Field_behavior {
 	private $_ci = NULL;
 	private $_extra_fields  = array();
 	
+	private $extra_condition = '';
+	
 	public function __construct()
 	{
 		$this->_ci = &get_instance();
@@ -266,7 +268,7 @@ class Field_behavior {
 				case 'wysiwyg_basic':
 						if($keyword = $this->_ci->input->get_post($field['name']))
 						{
-							$condition[$field['name'].' LIKE'] = $keyword;
+							$condition[$field['name'].' LIKE'] = "%$keyword%";
 							$where[$field['name']] = $keyword;
 							$suffix .= '&'.$field['name'].'='.$keyword;
 						}
@@ -286,13 +288,27 @@ class Field_behavior {
 							}
 							if($real_condition)
 							{
-								$this->_ci->db->where(implode(' AND ',$real_condition),'',false);
+								$this->extra_condition = implode(' AND ',$real_condition);
+								$this->set_extra_condition(FALSE);
 							}
 						}
 						break;
 				default :
 						break;
 			}
+		}
+	}
+	
+	public function set_extra_condition($clear = TRUE)
+	{
+		if(!$this->extra_condition)
+		{
+			return FALSE;
+		}
+		$this->_ci->db->where($this->extra_condition , '' ,false);
+		if( $clear )
+		{
+			$this->extra_condition = '';
 		}
 	}
 	

@@ -1,0 +1,1 @@
+<!--li class=""><a href="<?php echo oa_url($this->_admin->act.'/add')?>">填写报表</a></li--><li class=""><a href="<?php echo oa_url($this->_admin->act.'/count')?>">查看统计</a></li>

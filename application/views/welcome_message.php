@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
 	<meta charset="utf-8">
 	<title>欢迎使用DiliCMS!</title>
@@ -69,13 +67,11 @@
 <body>
 
 <div id="container">
-	<h1>欢迎使用DiliCMS!</h1>
+	<h1>伊德圆畜牧有限公司欢迎您！</h1>
+<p style="height:300px;">
 
-	<div id="body">
-		<p><?php echo 'DiliCMS('.$this->platform->get_name().') 初始化完成!'; ?>,<a href="<?php echo site_url('admin');?>">点此进入管理面板</a></p>
-        <p class="red">提示：成功初始化后，请将本控制器删除！</p>
-	</div>
-
+安装成功！
+</p>
 	<p class="footer">Powered by DiliCMS <b><?php echo DiliCMS_VERSION; ?></b></p>
 </div>
 

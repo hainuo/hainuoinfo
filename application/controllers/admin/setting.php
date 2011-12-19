@@ -33,5 +33,16 @@
 			update_cache('backend');
 			$this->_message("更新成功",'setting/backend',true,($this->input->get('tab') ? '?tab='.$this->input->get('tab') : '' ));
 		}
-			
+		function oa()
+		{
+			$data['oa'] = $this->db->get('dili_oa_settings')->row();
+			$this->_template('settings_oa',$data);
+		}
+		
+		function _oa_post()
+		{
+			$this->db->update('dili_oa_settings',$this->input->post());
+			update_cache('oa');
+			$this->_message("更新成功",'setting/oa',true,($this->input->get('tab') ? '?tab='.$this->input->get('tab') : '' ));
+		}	
 	}

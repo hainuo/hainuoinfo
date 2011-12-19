@@ -53,6 +53,7 @@
 			$this->db->from('dili_u_m_'.$model['name']);
 			$this->db->select('id');
 			$this->db->where($condition);
+			$this->field_behavior->set_extra_condition();
 			foreach($model['listable'] as $v)
 			{
 				$this->db->select($model['fields'][$v]['name']);	
