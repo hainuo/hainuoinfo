@@ -12,11 +12,11 @@ class Hyb extends Oa_Controller {
 		$act = $this->input->post ( 'act' );
 	}
 	
-	function dailyReport() { //汇总日报表
+	function detailReport() { //汇总日报表
 		$this->_dailyReport_post ();
 	}
 	
-	function _dailyReport_post() {
+	function _detailReport_post() {
 		$data = array ();
 		$date = $this->input->post ( 'date' );
 		if (! $date)
@@ -25,7 +25,7 @@ class Hyb extends Oa_Controller {
 		$data ['reportDate'] = $date;
 		//var_dump($data);
 		$data ['list'] = $this->hyb_mdl->getDailyReport ( $date );
-		$this->_template ( 'hyb/showDailyReport', $data );
+		$this->_template ( 'hyb/showDetailReport', $data );
 	}
 	
 	function addReport() //填写报表
@@ -85,14 +85,14 @@ class Hyb extends Oa_Controller {
 		}
 	}
 	
-	function creatReport() { //创建报表
+	function creatReport() { //创建月报表
 		//$this->_creatReport_post ();
 		$data=$this->hyb_mdl->getLastMonthReport();
 		//var_dump($data);
 		$this->_template('hyb/creatReport',$data);
 	}
 	
-	function _creatReport_post() {
+	function _creatMonthReport_post() {
 		$month = $this->input->post ( 'month' );
 		$data ['dongti'] =0;
 		$data ['canji'] =0;
