@@ -86,21 +86,62 @@ class Hyb extends Oa_Controller {
 	}
 	
 	function creatReport() { //创建报表
-		$this->_creatReport_post ();
+		//$this->_creatReport_post ();
+		$this->_template('hyb/creatReport');
 	}
 	
 	function _creatReport_post() {
 		$month = $this->input->post ( 'month' );
+		$data ['dongti'] =0;
+		$data ['canji'] =0;
+		$data ['dongtiNo'] =0;
+		$data ['canjiNo'] =0;
+		$data ['number'] =0;
+		$data ['jingzhong'] =0;
+		$data ['jine']=0;
+		$data ['yunfei']=0;
 		if (! $month)
 			$month = date ( 'Y-m', strtotime ( "-1 month" ) );
 		$result = $this->hyb_mdl->getMonthReport ( $month );
-		//var_dump($result);
-		foreach ($result as $val)
-		{ //操作数据
-			$dongti += $val->dongti;
-			$canji += $val->canji;
-			$dongtiNo += $val->dongtino;
-			$canjiNo += $val->canji;
+		//var_dump ( $result );
+		foreach ( $result as $val ) { //操作数据
+			$data ['dongti'] += $val->dongti;
+			$data ['canji'] += $val->canji;
+			$data ['dongtiNo'] += $val->dongtino;
+			$data ['canjiNo'] += $val->canjino;
+			$data ['number'] += $val->number;
+			$data ['jingzhong'] += $val->jingzhong;
+			$data ['jine'] += $val->jine;
+			$yunfei = unserialize ( $val->yunfei );
+			if ($yunfei)
+				foreach ( $yunfei as $v ) {
+					$data ['yunfei'] += $v;
+				}
+			$data ['pingjunjiage'] = round ( $data ['jine'] / $data ['jingzhong'], 3 );
+			$data ['pingjunyunfei'] = round ( $data ['yunfei'] / $data ['jingzhong'], 3 );
+			$data ['canjibi'] = round ( $data ['canji'] / $data ['dongti'] * 100, 2 );
+			$data ['chucheng'] = ($data ['dongti'] + $data ['canji'] / 3) / $data ['jingzhong'] * 100;
+			$data ['month'] = $month;
+		
+
 		}
+		//var_dump ( $data );
+		$this->hyb_mdl->addMonthReport($data);
+		$this->_message('添加成功','hyb/showMonthReport');
+	}
+	
+	function showMonthReport(){
+		$this->_showMontReport_post();
+	}
+	
+	function _showMontReport_post(){
+		$data = array ();
+		$month = $this->input->post ( 'month' );
+		if (! $month)
+			$month = date ( 'Y-m' );
+		$month = date ( 'Y-m', strtotime ( $month ) );//数据过滤 可以不用此步骤但是为保险确保数据格式增加此操作
+		$data ['month'] = $month;
+		$data['list']=$this->hyb_mdl->getMonRepoet($month);
+		$this->_template('hyb/showMonthReport',$data);
 	}
 }

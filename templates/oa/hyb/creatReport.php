@@ -2,7 +2,7 @@
 	href="<?php echo base_url().'templates/oa/'?>images/oa.css" />
 <div class="headbar">
 	<div class="position">
-		<span><?php echo date('Y年m月d日',strtotime($reportDate));?> 毛鸡收购日报表</span>
+		<span><?php echo date('Y年m月',strtotime($reportDate));?> 毛鸡收购日报表</span>
 	</div>
 </div>
 <?php 
@@ -22,15 +22,8 @@ $totalyunfei=0;
 			<tr>
 				<th>日期</th>
 				<td><input type="text" name="date" id="date"
-					value="<?php echo date('Y-m-d')?>"
-					onFocus="WdatePicker({skin:'whyGreen',maxDate:'<?php echo date('Y-m-d')?>'})"></td>
-				<td><input type="submit" value="查看报表"></td>
-			</tr>
-			<tr>
-				<th>日期</th>
-				<td><input type="text" name="date" id="date"
-					value="<?php echo date('Y-m-d')?>"
-					onFocus="WdatePicker({skin:'whyGreen',maxDate:'<?php echo date('Y-m-d')?>'})"></td>
+					value="<?php echo date('Y-m')?>"
+					onFocus="WdatePicker({skin:'whyGreen',maxDate:'<?php echo date('Y-m')?>'})"></td>
 				<td><input type="submit" value="查看报表"></td>
 			</tr>
 		</table>
