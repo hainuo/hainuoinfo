@@ -78,17 +78,16 @@ class Hyb extends Oa_Controller {
 			$data ['yewuyuan'] = serialize ( $ywy );
 			//var_dump($data);
 			//TODO业务员为空时候需要对业务员数组赋值为胴体
-			$this->hyb_mdl->insertReport ( $data );
-			$this->_message ( '信息录入成功!' );
-		
-		//$this->_template('hyb/addreport');				
+			$this->hyb_mdl->insertDetailReport ( $data );
+			$this->_message ( '信息录入成功!' );			
 		}
 	}
 	
-	function creatReport() { //创建月报表
-		//$this->_creatReport_post ();
-		$data=$this->hyb_mdl->getLastMonthReport();
-		//var_dump($data);
+	function creatReport() { //创建报表页面
+		$data['month']=date('Y-m',strtotime('-1 month'));
+		$data['date']=date('Y-m-d',strtotime('-1 day'));
+		$data['list']['month']=$this->hyb_mdl->getMonthReport($data['month']);//获取最近一次的月报表
+		$data['list']['daily']=$this->hyb_mdl->getDailyReport($data['date']);//获取最近一次的月报表
 		$this->_template('hyb/creatReport',$data);
 	}
 	
