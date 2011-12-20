@@ -87,32 +87,39 @@ class Hyb extends Oa_Controller {
 	
 	function creatReport() { //创建报表
 		//$this->_creatReport_post ();
-		$this->_template('hyb/creatReport');
+		$data=$this->hyb_mdl->getLastMonthReport();
+		//var_dump($data);
+		$this->_template('hyb/creatReport',$data);
 	}
 	
 	function _creatReport_post() {
 		$month = $this->input->post ( 'month' );
 		$data ['dongti'] =0;
 		$data ['canji'] =0;
-		$data ['dongtiNo'] =0;
-		$data ['canjiNo'] =0;
+		$data ['dongtino'] =0;
+		$data ['canjino'] =0;
+		$data ['choujino'] =0;
 		$data ['number'] =0;
 		$data ['jingzhong'] =0;
 		$data ['jine']=0;
 		$data ['yunfei']=0;
+		$data['days']=0;
 		if (! $month)
 			$month = date ( 'Y-m', strtotime ( "-1 month" ) );
-		$result = $this->hyb_mdl->getMonthReport ( $month );
+		//TODO先判断是否已经存在该月份的日报表 若存在则返回显示
+		$result = $this->hyb_mdl->getDailyReportByMonth ( $month );
 		//var_dump ( $result );
 		foreach ( $result as $val ) { //操作数据
 			$data ['dongti'] += $val->dongti;
 			$data ['canji'] += $val->canji;
-			$data ['dongtiNo'] += $val->dongtino;
-			$data ['canjiNo'] += $val->canjino;
+			$data ['dongtino'] += $val->dongtino;
+			$data ['canjino'] += $val->canjino;
+			$data['choujino']+=$val->choujino;
 			$data ['number'] += $val->number;
 			$data ['jingzhong'] += $val->jingzhong;
 			$data ['jine'] += $val->jine;
 			$yunfei = unserialize ( $val->yunfei );
+			$data['days']+=1;//正常生产天数
 			if ($yunfei)
 				foreach ( $yunfei as $v ) {
 					$data ['yunfei'] += $v;
@@ -120,10 +127,9 @@ class Hyb extends Oa_Controller {
 			$data ['pingjunjiage'] = round ( $data ['jine'] / $data ['jingzhong'], 3 );
 			$data ['pingjunyunfei'] = round ( $data ['yunfei'] / $data ['jingzhong'], 3 );
 			$data ['canjibi'] = round ( $data ['canji'] / $data ['dongti'] * 100, 2 );
-			$data ['chucheng'] = ($data ['dongti'] + $data ['canji'] / 3) / $data ['jingzhong'] * 100;
+			$data ['chucheng'] =round( ($data ['dongti'] + $data ['canji'] / 3) / $data ['jingzhong'] * 100,2);
 			$data ['month'] = $month;
-		
-
+			$data['ripingjunchanliang']=round($data['jingzhong']/$data['days'],2);
 		}
 		//var_dump ( $data );
 		$this->hyb_mdl->addMonthReport($data);
@@ -141,7 +147,7 @@ class Hyb extends Oa_Controller {
 			$month = date ( 'Y-m' );
 		$month = date ( 'Y-m', strtotime ( $month ) );//数据过滤 可以不用此步骤但是为保险确保数据格式增加此操作
 		$data ['month'] = $month;
-		$data['list']=$this->hyb_mdl->getMonRepoet($month);
+		$data['list']=$this->hyb_mdl->getMonthReport($month);
 		$this->_template('hyb/showMonthReport',$data);
 	}
 }
