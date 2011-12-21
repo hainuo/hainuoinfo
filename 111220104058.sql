@@ -65,7 +65,7 @@ CREATE TABLE `dili_captcha` (
   `word` varchar(20) NOT NULL,
   PRIMARY KEY (`captcha_id`),
   KEY `word` (`word`)
-) ENGINE=MyISAM AUTO_INCREMENT=532 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=533 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `dili_cate_fields`

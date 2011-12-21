@@ -25,7 +25,7 @@ class Hyb_mdl extends CI_Model {
 		if (! $date)
 			$date = date ( 'Y-m-d', time () );
 		$query = $this->db->get_where ( 'dili_hyb_ribaobiao', array ('date' => $date ) );
-		return $query->result ();
+		return $query->result ()->row();
 	}
 	function getDailyReportByMonth($month) { //得到月明细表 每天的明细
 		if (! $month)
