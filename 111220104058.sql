@@ -143,7 +143,32 @@ CREATE TABLE `dili_hyb_detailreport` (
   `yunfei` varchar(1000) DEFAULT NULL COMMENT '运费 数组',
   `diqu` varchar(256) DEFAULT NULL COMMENT '所属地区',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Table structure for `dili_hyb_ribaobiao`
+-- ----------------------------
+DROP TABLE IF EXISTS `dili_hyb_ribaobiao`;
+CREATE TABLE `dili_hyb_ribaobiao` (
+  `date` date NOT NULL DEFAULT '0000-00-00' COMMENT '年月 默认为2011-11-11类似',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '序号',
+  `dongti` float DEFAULT NULL COMMENT '本月胴体重',
+  `canji` float DEFAULT NULL COMMENT '本月残鸡重',
+  `pingjunjiage` float DEFAULT NULL COMMENT '月平均价格',
+  `dongtino` smallint(6) DEFAULT NULL COMMENT '胴体数量',
+  `number` int(11) DEFAULT NULL COMMENT '月总只数',
+  `canjino` smallint(6) DEFAULT NULL COMMENT '残鸡数量',
+  `choujino` smallint(6) DEFAULT NULL COMMENT '臭鸡数量',
+  `canjibi` float DEFAULT NULL COMMENT '残鸡比好鸡胴体重量比',
+  `jingzhong` float DEFAULT NULL COMMENT '总净重',
+  `jine` int(11) DEFAULT NULL COMMENT '总金额',
+  `yunfei` int(11) DEFAULT NULL COMMENT '总运费',
+  `pingjunyunfei` float DEFAULT NULL COMMENT '月平均运费',
+  `chucheng` float DEFAULT NULL COMMENT '月出成率',
+  `ripingjunchanliang` float DEFAULT NULL COMMENT '日平均产量',
+  `days` tinyint(4) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `dili_hyb_yuebaobiao`

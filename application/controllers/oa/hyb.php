@@ -123,6 +123,7 @@ class Hyb extends Oa_Controller {
 			$data ['jine'] += $detail->jine;
 			$data ['yunfei'] += $detail->yunfei;
 			$data ['days'] += $detail->days;
+			$data['chucheng']=round
 		}
 	}
 	
