@@ -118,10 +118,10 @@ CREATE TABLE `dili_fieldtypes` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- ----------------------------
---  Table structure for `dili_hyb_ribaobiao`
+--  Table structure for `dili_hyb_detailreport`
 -- ----------------------------
-DROP TABLE IF EXISTS `dili_hyb_ribaobiao`;
-CREATE TABLE `dili_hyb_ribaobiao` (
+DROP TABLE IF EXISTS `dili_hyb_detailreport`;
+CREATE TABLE `dili_hyb_detailreport` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `carno` varchar(256) DEFAULT '' COMMENT '车号 数组',
   `date` date NOT NULL COMMENT '日期',
