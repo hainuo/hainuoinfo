@@ -127,3 +127,59 @@ DEBUG - 2011-12-20 09:41:51 --> File loaded: F:\sae-hainuo\4\templates/oa/hyb/cr
 DEBUG - 2011-12-20 09:41:51 --> File loaded: F:\sae-hainuo\4\templates/oa/sys_entry.php
 DEBUG - 2011-12-20 09:41:51 --> Final output sent to browser
 DEBUG - 2011-12-20 09:41:51 --> Total execution time: 0.1650
+DEBUG - 2011-12-20 16:39:17 --> Config Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Hooks Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Utf8 Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> UTF-8 Support Enabled
+DEBUG - 2011-12-20 16:39:17 --> URI Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Router Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Output Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Security Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Input Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Global POST and COOKIE data sanitized
+DEBUG - 2011-12-20 16:39:17 --> Language Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Loader Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Controller Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Helper loaded: url_helper
+DEBUG - 2011-12-20 16:39:17 --> Database Driver Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Session Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Helper loaded: string_helper
+DEBUG - 2011-12-20 16:39:17 --> Session routines successfully run
+DEBUG - 2011-12-20 16:39:17 --> Model Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Model Class Initialized
+DEBUG - 2011-12-20 16:39:17 --> Helper loaded: form_helper
+DEBUG - 2011-12-20 16:39:17 --> Form Validation Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Config Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Hooks Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Utf8 Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> UTF-8 Support Enabled
+DEBUG - 2011-12-20 16:55:52 --> URI Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Router Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Output Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Security Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Input Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Global POST and COOKIE data sanitized
+DEBUG - 2011-12-20 16:55:52 --> Language Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Loader Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Controller Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Helper loaded: url_helper
+DEBUG - 2011-12-20 16:55:52 --> Database Driver Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Session Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Helper loaded: string_helper
+DEBUG - 2011-12-20 16:55:52 --> Session routines successfully run
+DEBUG - 2011-12-20 16:55:52 --> Model Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Model Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> Helper loaded: form_helper
+DEBUG - 2011-12-20 16:55:52 --> Form Validation Class Initialized
+DEBUG - 2011-12-20 16:55:52 --> File loaded: F:\sae-hainuo\4\templates/oa/root/top.php
+DEBUG - 2011-12-20 16:55:52 --> File loaded: F:\sae-hainuo\4\templates/oa/sys_top.php
+DEBUG - 2011-12-20 16:55:52 --> File loaded: F:\sae-hainuo\4\templates/oa/sys_link.php
+DEBUG - 2011-12-20 16:55:52 --> File loaded: F:\sae-hainuo\4\templates/oa/hyb/left.php
+DEBUG - 2011-12-20 16:55:52 --> File loaded: F:\sae-hainuo\4\templates/oa/root/left.php
+DEBUG - 2011-12-20 16:55:52 --> File loaded: F:\sae-hainuo\4\templates/oa/sys_left.php
+ERROR - 2011-12-20 16:55:52 --> Severity: Notice  --> Trying to get property of non-object F:\sae-hainuo\4\templates\oa\hyb\creatReport.php 22
+ERROR - 2011-12-20 16:55:52 --> Severity: Notice  --> Trying to get property of non-object F:\sae-hainuo\4\templates\oa\hyb\creatReport.php 46
+DEBUG - 2011-12-20 16:55:52 --> File loaded: F:\sae-hainuo\4\templates/oa/hyb/creatReport.php
+DEBUG - 2011-12-20 16:55:52 --> File loaded: F:\sae-hainuo\4\templates/oa/sys_entry.php
+DEBUG - 2011-12-20 16:55:52 --> Final output sent to browser
+DEBUG - 2011-12-20 16:55:52 --> Total execution time: 0.0715
