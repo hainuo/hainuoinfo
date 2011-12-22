@@ -1,4 +1,5 @@
 <?php
+define ( 'CHUCHENGBI', '3' );
 class Hyb extends Oa_Controller {
 	function __construct() {
 		parent::__construct ();
@@ -103,14 +104,15 @@ class Hyb extends Oa_Controller {
 		$data ['jingzhong'] = 0;
 		$data ['jine'] = 0;
 		$data ['yunfei'] = 0;
-		$data ['days'] = 0;
+		$data ['date'] = $date;
 		if (! $date)
 			$date = date ( 'Y-m-d', strtotime ( "-1 day" ) );
 		$result = $this->hyb_mdl->getDailyReport ( $date );
-		
-		if ($result) //检查数据库如果存在则跳出 不存在则继续
+		var_dump($data);
+		if ($result) { //检查数据库如果存在则跳出 不存在则继续
+			$this->_message ( date ( 'Y年m月d日', strtotime($data ['date']) ) . '报表已经存在，取消生成操作!' );
 			return TRUE;
-		
+		}
 		$details = $this->hyb_mdl->getDetailReportByDate ( $date );
 		foreach ( $details as $detail ) {
 			$data ['dongti'] += $detail->dongti;
@@ -121,9 +123,20 @@ class Hyb extends Oa_Controller {
 			$data ['number'] += $detail->number;
 			$data ['jingzhong'] += $detail->jingzhong;
 			$data ['jine'] += $detail->jine;
-			$data ['yunfei'] += $detail->yunfei;
-			$data ['days'] += $detail->days;
-			$data['chucheng']=round
+			$yunfei = unserialize ( $val->yunfei );
+			if ($yunfei)
+				foreach ( $yunfei as $v ) {
+					$data ['yunfei'] += $v;
+				}
+			$data ['chucheng'] = round ( ($data ['dongti'] + $data ['canji'] / CHUCHENGBI) / $data ['jingzhong'] * 100, 3 );
+			$data ['pingjunjiage'] = round ( $data ['jine'] / $data ['jingzhong'], 3 );
+			$data ['pingjunyunfei'] = round ( $data ['yunfei'] / $data ['jingzhong'], 3 );
+			
+			if (!empty ( $data ['date'] )) {
+				$result = $this->hyb_mdl->insertDailyReport ( $data );
+				$this->_message ( date ( 'Y年m月d日', strtotime($data ['date']) ) . '报表生成成功', 'hyb/showDailyReport' );
+			} else
+				$this->_message ( date ( 'Y年m月d日', strtotime($data ['date']) ) . '报表生成失败' );
 		}
 	}
 	
@@ -143,6 +156,12 @@ class Hyb extends Oa_Controller {
 			$month = date ( 'Y-m', strtotime ( "-1 month" ) );
 		
 		//TODO先判断是否已经存在该月份的日报表 若存在则返回显示
+		$result = $this->hyb_mdl->getMonthReport ( $month );
+		if (! empty ( $result )) {
+			$this->_message ( date ( 'Y年m月', strtotime($data ['month'])) . '报表已存在，取消声称操作！' );
+			return TRUE;
+		}
+		
 		$result = $this->hyb_mdl->getDailyReportByMonth ( $month );
 		//var_dump ( $result );
 		foreach ( $result as $val ) { //操作数据自动生成相关数据
@@ -154,22 +173,21 @@ class Hyb extends Oa_Controller {
 			$data ['number'] += $val->number;
 			$data ['jingzhong'] += $val->jingzhong;
 			$data ['jine'] += $val->jine;
-			$yunfei = unserialize ( $val->yunfei );
 			$data ['days'] += 1; //正常生产天数
-			if ($yunfei)
-				foreach ( $yunfei as $v ) {
-					$data ['yunfei'] += $v;
-				}
+			$data ['yunfei'] += $val->yunfei;
 			$data ['pingjunjiage'] = round ( $data ['jine'] / $data ['jingzhong'], 3 );
 			$data ['pingjunyunfei'] = round ( $data ['yunfei'] / $data ['jingzhong'], 3 );
 			$data ['canjibi'] = round ( $data ['canji'] / $data ['dongti'] * 100, 3 );
-			$data ['chucheng'] = round ( ($data ['dongti'] + $data ['canji'] / 3) / $data ['jingzhong'] * 100, 3 );
+			$data ['chucheng'] = round ( ($data ['dongti'] + $data ['canji'] / CHUCHENGBI) / $data ['jingzhong'] * 100, 3 );
 			$data ['month'] = $month;
 			$data ['ripingjunchanliang'] = round ( $data ['jingzhong'] / $data ['days'], 3 );
 		}
 		//var_dump ( $data );
-		$this->hyb_mdl->addMonthReport ( $data );
-		$this->_message ( '添加成功', 'hyb/showMonthReport' );
+		if (isset ( $data ['month'] )) {
+			$this->hyb_mdl->insertMonthReport ( $data );
+			$this->_message ( date ( 'Y年m月', strtotime($data ['month'])) ) . '报表生成成功', 'hyb/showMonthReport' );
+		} else
+			$this->_message ( date ( 'Y年m月', strtotime($data ['month']) ) . '报表生成失败' );
 	}
 	
 	//创建报表结束

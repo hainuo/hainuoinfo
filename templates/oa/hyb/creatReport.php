@@ -13,7 +13,7 @@
 	<div class="content form_content">
 <?php
 	echo validation_errors (); //显示报表错误 
-	echo form_open ( 'oa/hyb/creatDailyReport' ); //生成 form	
+	echo form_open ( 'oa/hyb/creatMonthReport' ); //生成 form	
 ?>
 		<!-- 填写日报表生成最近一天的日报表  -->
 		<table>
@@ -26,7 +26,7 @@
 			</tr>
 		</table>
 		</form>
-	<?php echo form_open ( 'oa/hyb/creatMonthReport' ); //生成 form  ?>
+	<?php echo form_open ( 'oa/hyb/creatDailyReport' ); //生成 form  ?>
 		<!-- 填写日报表生成最近一天的日报表  -->
 		<table>
 			<tr>
