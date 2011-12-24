@@ -6,10 +6,13 @@
 			href="<?php  echo oa_url('hyb/addReport')?>">填写报表</a></li>
 		<li
 			class="<?php if($this->uri->rsegment(2)=='dailyReport')  echo 'selected';   ?>"><a
-			href="<?php  echo oa_url('hyb/dailyReport')?>">日报表</a></li>
+			href="<?php  echo oa_url('hyb/showDetailReport')?>">日明细表</a></li>
+		<li
+			class="<?php if($this->uri->rsegment(2)=='dailyReport')  echo 'selected';   ?>"><a
+			href="<?php  echo oa_url('hyb/showDailyReport')?>">日报表</a></li>
 		<li
 			class="<?php if($this->uri->rsegment(2)=='monthReport')  echo 'selected';   ?>"><a
-			href="<?php  echo oa_url('hyb/monthReport')?>">月报表</a></li>
+			href="<?php  echo oa_url('hyb/showMonthReport')?>">月报表</a></li>
 		<li
 			class="<?php if($this->uri->rsegment(2)=='creatReport')  echo 'selected';   ?>"><a
 			href="<?php  echo oa_url('hyb/creatReport')?>">生成报表</a></li>

@@ -5,7 +5,6 @@
 }
 
 td {
-	width: 100px;
 	line-height: 30px;
 	border: 1px dashed #ccc;
 	text-align: center;
@@ -44,7 +43,7 @@ td input#jine {
 
 div.admin_right {
 	height: 500px;
-	overflow-y: auto;
+	overflow:auto;
 }
 
 div.error {
@@ -55,4 +54,6 @@ table th{
 	border:1px dashed #ccc;
 }
 div.car{text-align:left;color:blue;}
-div.car span.yunfei{margin:opx 5px;color:#666}
+div.car span.yunfei{margin:0px 5px;color:#666}
+table.list_table td,table.list_table th{text-align:center;border: 1px dashed #ccc;}
+.addReport{text-align: left;}

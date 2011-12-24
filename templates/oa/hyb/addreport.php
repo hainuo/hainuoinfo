@@ -5,11 +5,11 @@
 	</div>
 </div>
 <div class="content_box">
-	<div class="content form_content">
+	<div class="content form_content addReport">
 	<?php echo validation_errors(); ?>
 	<?php if(isset($errormessage)) echo "<div class='error'>".$errormessage."</div>";?>
 		<?php echo form_open('oa/hyb/addReport'); ?>
-			<table>
+			<table class="addReport">
 				<tr>
 					<td class='text'>日期</td>
 					<td><input type='text' id='date' name='date'
@@ -45,7 +45,7 @@
 						value='<?php echo set_value('yunfei[]'); ?>'></td>
 					<td class='text'><input type="text" id='yunfei' name='yunfei[]'
 						value='<?php echo set_value('yunfei[]'); ?>'></td>
-				</tr>			
+				</tr>
 				<tr>
 					<td class='text'>胴体重</td>
 					<td><input type="text" id='dongti' name='dongti' value='<?php echo set_value('dongti'); ?>'></td>
@@ -64,7 +64,7 @@
 						value='<?php echo set_value('choujiNo'); ?>'></td>
 				</tr>
 				<tr>
-					
+
 					<td class='text'>总只数</td>
 					<td class='text'><input type="text" id='number' name='number'
 						value='<?php echo set_value('number'); ?>' readonly></td>

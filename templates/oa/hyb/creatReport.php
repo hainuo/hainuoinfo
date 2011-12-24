@@ -1,9 +1,5 @@
 <link rel="stylesheet"
 	href="<?php echo base_url().'templates/oa/'?>images/oa.css" />
-
-
-
-
 <div class="headbar">
 	<div class="position">
 		<span>伊德圆畜牧有限公司报表生产系统</span>
@@ -12,8 +8,8 @@
 <div class="content_box">
 	<div class="content form_content">
 <?php
-	echo validation_errors (); //显示报表错误 
-	echo form_open ( 'oa/hyb/creatMonthReport' ); //生成 form	
+	echo validation_errors (); //显示报表错误
+	echo form_open ( 'oa/hyb/creatMonthReport' ); //生成 form
 ?>
 		<!-- 填写日报表生成最近一天的日报表  -->
 		<table>
@@ -21,7 +17,7 @@
 				<td>选择月份</td>
 				<td><input type="text" name="month" id="month"
 					value="<?php echo date('Y-m',strtotime('-1 month'));?>"
-					onFocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-M',maxDate:'<?php echo date('Y-m',strtotime('-1 month'))?>'})"></td>
+					onFocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-M',maxDate:'<?php echo date('Y-m')?>'})"></td>
 				<td><input type="submit" value="生成所选月份报表"></td>
 			</tr>
 		</table>
@@ -37,9 +33,9 @@
 				<td><input type="submit" value="生成所选日期报表"></td>
 			</tr>
 		</table>
-		</form>		
+		</form>
 		<?php
-		
+
 		if ($list) {
 			$monthList = $list ['month'];
 			$dailyList = $list ['daily'];
@@ -85,14 +81,14 @@
 			</tr>
 		</table>
 		<?php
-			
+
 			} else
 				echo '<div class="error">' . date ( 'Y年m月d日', strtotime ( $daily ) ) . '日报表没有生成!</div>';
 			if ($dailyList) {
 				?>
 		<table>
 			<tr>
-				<th colspan='15'><?php echo date('Y年m月d日',strtotime($daily));?> 毛鸡收购月报表</th>
+				<th colspan='15'><?php echo date('Y年m月d日',strtotime($daily));?> 毛鸡收购日报表</th>
 			</tr>
 			<tr>
 				<th>总运费</th>
@@ -103,7 +99,7 @@
 				<th>残鸡只数</th>
 				<th>臭鸡只数</th>
 				<th>总只数</th>
-				<th>月产量</th>
+				<th>日产量</th>
 				<th>出成率</th>
 				<th>平均价格</th>
 				<th>总金额</th>
@@ -126,7 +122,7 @@
 			</tr>
 		</table>
 		<?php
-			
+
 			} else
 				echo '<div class="error">' . date ( 'Y年m月d日', strtotime ( $daily ) ) . '日报表没有生成!</div>';
 			?>

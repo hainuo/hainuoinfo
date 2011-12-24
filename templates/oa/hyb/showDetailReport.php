@@ -2,79 +2,111 @@
 	href="<?php echo base_url().'templates/oa/'?>images/oa.css" />
 <div class="headbar">
 	<div class="position">
-		<span><?php echo date('Y年m月d日',strtotime($reportDate));?> 毛鸡收购日报表</span>
+		<span><?php echo date('Y年m月d日',strtotime($date));?> 毛鸡收购日报表</span>
 	</div>
 </div>
-<?php 
-//定义常量 为写入日报表数据库做准备
-$number=0;
-$jine=0;
-$chucheng=0;
-$dongti=0;
-$canji=0;
-$totalyunfei=0;
-?>
 <div class="content_box">
 	<div class="content form_content">
 	<?php echo validation_errors(); ?>
-	<?php echo form_open('oa/hyb/dailyReport'); ?>
+	<?php echo form_open('oa/hyb/showDetailReport'); ?>
 		<table>
 			<tr>
-				<th>日期</th>
+				<th>选择日期</th>
 				<td><input type="text" name="date" id="date"
-					value="<?php echo date('Y-m-d')?>"
+					value="<?php echo date('Y-m-d',strtotime('-1 day'))?>"
 					onFocus="WdatePicker({skin:'whyGreen',maxDate:'<?php echo date('Y-m-d')?>'})"></td>
-				<td><input type="submit" value="查看报表"></td>
+				<td><input type="submit" value="查看当日明细" /></td>
 			</tr>
 		</table>
 		</form>
-		<table>
+		<table class="list_table">
+            <tbody>
 			<tr>
-				<th>车号（运费）</th>
-				<th>地区</th>
-				<th>养殖户</th>
-				<th>胴体重</th>
-				<th>残鸡重</th>
-				<th>胴体只数</th>
-				<th>残鸡只数</th>
-				<th>臭鸡只数</th>
-				<th>出成率</th>
-				<th>单价</th>
-				<th>金额</th>
-				<th>业务员</th>
-				<th>经销商</th>
+				<td>车号（运费）</td>
+				<td>地区</td>
+				<td>养殖户</td>
+				<td>胴体重</td>
+				<td>残鸡重</td>
+				<td>胴体只数</td>
+				<td>残鸡只数</td>
+				<td>臭鸡只数</td>
+				<td>出成率</td>
+				<td>单价</td>
+				<td>金额</td>
+				<td>业务员</td>
+				<td>经销商</td>
 			</tr>
-<?php  
-if($list) 
+<?php
+if($list)
 	foreach ($list as $val){?>
 			<tr>
-				<th><?php
+				<td><?php
 			 	 if($val->yunfei){
 			 	 	foreach (unserialize($val->yunfei) as $k=>$v){
-			 	 		if($k)	echo '<div class="car">'.$k."(<span class='yunfei'>".$v."</span>)</div>";
-			 	 	} 
+			 	 		if($k){
+			 	 		    echo '<div class="car">'.$k."(<span class='yunfei'>".$v."</span>)</div>";
+                        }
+			 	 	}
 			 	 }
-			 	?></th>
-				<th><?php echo $val->diqu;?></th>
-				<th><?php echo $val->yangzhihu;?></th>
-				<th><?php echo $val->dongti;?></th>
-				<th><?php echo $val->canji;?></th>
-				<th><?php echo $val->dongtino;?></th>
-				<th><?php echo $val->canjino;?></th>
-				<th><?php echo $val->choujino;?></th>
-				<th><?php echo $val->chucheng;?></th>
-				<th><?php echo $val->danjia;?></th>
-				<th><?php echo $val->jine;?></th>
-				<th><?php
+			 	?></td>
+				<td><?php echo $val->diqu;?></td>
+				<td><?php echo $val->yangzhihu;?></td>
+				<td><?php echo $val->dongti;?></td>
+				<td><?php echo $val->canji;?></td>
+				<td><?php echo $val->dongtino;?></td>
+				<td><?php echo $val->canjino;?></td>
+				<td><?php echo $val->choujino;?></td>
+				<td><?php echo $val->chucheng;?></td>
+				<td><?php echo $val->danjia;?></td>
+				<td><?php echo $val->jine;?></td>
+				<td><?php
 			 foreach ( unserialize($val->yewuyuan) as $v){
 			 	if($v) echo $v;
 			 }
-			 		
-			 ?></th>
-				<th><?php echo $val->jingxiaoshang;?></th>
+
+			 ?></td>
+				<td><?php echo $val->jingxiaoshang;?></td>
 			</tr>
 <?php }else echo '<tr><td colspan="13">暂无数据</td></tr>'?>
+        </tbody>
 		</table>
+        <table class="list_table">
+            <tbody>
+                <tr>
+               	    <td>总运费</td>
+                    <td>平均运费</td>
+    				<td>胴体重</td>
+    				<td>残鸡重</td>
+                    <td>残鸡比</td>
+    				<td>胴体只数</td>
+    				<td>残鸡只数</td>
+    				<td>臭鸡只数</td>
+    				<td>出成率</td>
+    				<td>单价</td>
+    				<td>金额</td>
+                </tr>
+                <?php
+                if($report){
+                ?>
+               	    <td><?php echo $report->yunfei ?></td>
+                    <td><?php echo $report->pingjunyunfei ?></td>
+    				<td><?php echo $report->dongti ?></td>
+    				<td><?php echo $report->canji ?></td>
+                    <td><?php echo $report->canjibi ?></td>
+    				<td><?php echo $report->dongtino ?></td>
+    				<td><?php echo $report->canjino ?></td>
+    				<td><?php echo $report->choujino ?></td>
+    				<td><?php echo $report->chucheng ?></td>
+    				<td><?php echo $report->pingjunjiage ?></td>
+    				<td><?php echo $report->jine ?></td>
+                <?php
+                }else{
+
+                    echo '<td colspan="11">该数据尚未生成，请生成后在操作!</td>'
+                }
+                ?>
+            </tbody>
+        </table>
 	</div>
 </div>
 <script type="text/javascript"

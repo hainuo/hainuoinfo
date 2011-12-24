@@ -4,7 +4,10 @@
 <title><?php echo setting('oa_title'); ?>----Powered By DiliCMS</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="<?php echo base_url().'admincp/default/'?>images/admin.css" />
-
+<script language="javascript" src="LodopFuncs.js"></script>
+<object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
+	<embed id="LODOP_EM" TYPE="application/x-print-lodop" width="0" height="0" PLUGINSPAGE="<?php echo base_url()."/templates/oa/js/install_lodop.exe"?>"></embed>
+</object>
 <script language="javascript" src="<?php echo base_url().'admincp/default/'?>js/jquery.js"></script>
 <script language="javascript" src="<?php echo base_url().'admincp/default/'?>js/admin.js"></script>
 </head>
@@ -26,7 +29,7 @@
         </p>
 	</div>
 	<div id="info_bar">
-    <span class="nav_sec">    	
+    <span class="nav_sec">
         <?php $this->load->view('sys_link'); ?>
 	</span></div>
 	<div id="admin_left">
@@ -54,6 +57,7 @@
 			$(this).removeClass("sel");
 		}
 	);
+
 </script>
 </body>
 </html>

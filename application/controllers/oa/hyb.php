@@ -8,32 +8,32 @@ class Hyb extends Oa_Controller {
 		$this->load->library ( 'form_validation' );
 		$this->form_validation->set_error_delimiters ( '<div class="error">', '</div>' );
 	}
-	
+
 	function Index() { //索引页
 		$act = $this->input->post ( 'act' );
 	}
-	
+
 	function detailReport() { //汇总日报表
 		$this->_dailyReport_post ();
 	}
-	
+
 	function _detailReport_post() {
 		$data = array ();
 		$date = $this->input->post ( 'date' );
 		if (! $date)
 			$date = date ( 'Y-m-d' );
 		$date = date ( 'Y-m-d', strtotime ( $date ) );
-		$data ['reportDate'] = $date;
+		$data ['date'] = $date;
 		//var_dump($data);
 		$data ['list'] = $this->hyb_mdl->getDailyReport ( $date );
-		$this->_template ( 'hyb/showDetailReport', $data );
+		$this->_template ( 'hyb/showDailyReport', $data );
 	}
-	
+
 	function addReport() //填写报表明细
 {
 		$this->_template ( 'hyb/addreport' );
 	}
-	
+
 	function _addReport_post() //写入数据库
 {
 		$config = array (array ('field' => 'yangzhihu', 'label' => '养殖户', 'rules' => 'trim' ), array ('field' => 'diqu', 'label' => '地区', 'rules' => 'required' ), array ('field' => 'carNo[]', 'label' => '车号', 'rules' => 'trim' ), array ('field' => 'yunfei[]', 'label' => '运费', 'rules' => 'trim' ), array ('field' => 'dongti', 'label' => '胴体重量', 'rules' => 'required|numeric' ), array ('field' => 'canji', 'label' => '残疾重量', 'rules' => 'required|numeric' ), array ('field' => 'jingzhong', 'label' => '净重', 'rules' => 'required|numeric' ), array ('field' => 'dongtiNo', 'label' => '胴体只数', 'rules' => 'required|is_natural' ), array ('field' => 'canjiNo', 'label' => '残鸡只数', 'rules' => 'required|is_natural' ), array ('field' => 'jingxiaoshang', 'label' => '经销商', 'rules' => 'required' ), array ('field' => 'canjizhesuan', 'label' => '残鸡折算率', 'rules' => 'required|is_natural_no_zero' ), array ('field' => 'number', 'label' => '总只数', 'rules' => 'required|integer' ), array ('field' => 'chucheng', 'label' => '出成率', 'rules' => 'required|numeric' ), array ('field' => 'jine', 'label' => '金额', 'rules' => 'required|integer' ), array ('field' => 'danjia', 'label' => '单价', 'rules' => 'required|numeric' ), array ('field' => 'beizhu', 'label' => '备注', 'rules' => 'required' ) );
@@ -77,13 +77,15 @@ class Hyb extends Oa_Controller {
 			$data ['carno'] = serialize ( $carno );
 			$data ['yunfei'] = serialize ( $yunfei );
 			$data ['yewuyuan'] = serialize ( $ywy );
-			//var_dump($data);
-			//TODO业务员为空时候需要对业务员数组赋值为胴体
+			//业务员为空时候需要对业务员数组赋值为胴体
+            $yewuyuan=implode('',$data['yewuyuan']);
+			if(empty($yewuyuan))
+				$data['yewuyuan'][0]='胴体';
 			$this->hyb_mdl->insertDetailReport ( $data );
 			$this->_message ( '信息录入成功!' );
 		}
 	}
-	
+
 	//创建报表开始
 	function creatReport() { //创建报表页面
 		$data ['month'] = date ( 'Y-m', strtotime ( '-1 month' ) );
@@ -92,8 +94,8 @@ class Hyb extends Oa_Controller {
 		$data ['list'] ['daily'] = $this->hyb_mdl->getDailyReport ( $data ['daily'] ); //获取最近一次的月报表
 		$this->_template ( 'hyb/creatReport', $data );
 	}
-	
-	function _creatDailyReport_post() {
+
+	function _creatDailyReport_post() {//创建日报表
 		$date = $this->input->post ( 'date' );
 		$data ['dongti'] = 0;
 		$data ['canji'] = 0;
@@ -107,11 +109,10 @@ class Hyb extends Oa_Controller {
 		$data ['date'] = $date;
 		if (! $date)
 			$date = date ( 'Y-m-d', strtotime ( "-1 day" ) );
-		$result = $this->hyb_mdl->getDailyReport ( $date );
-		var_dump($data);
+		$result = $this->hyb_mdl->getDailyReport ( $date );//验证是否存在该日期的数据时，会出现$date被重置的现象故使用$data['date']防止问题产生
 		if ($result) { //检查数据库如果存在则跳出 不存在则继续
 			$this->_message ( date ( 'Y年m月d日', strtotime($data ['date']) ) . '报表已经存在，取消生成操作!' );
-			return TRUE;
+			//return TRUE;
 		}
 		$details = $this->hyb_mdl->getDetailReportByDate ( $date );
 		foreach ( $details as $detail ) {
@@ -123,7 +124,7 @@ class Hyb extends Oa_Controller {
 			$data ['number'] += $detail->number;
 			$data ['jingzhong'] += $detail->jingzhong;
 			$data ['jine'] += $detail->jine;
-			$yunfei = unserialize ( $val->yunfei );
+			$yunfei = unserialize ( $detail->yunfei );
 			if ($yunfei)
 				foreach ( $yunfei as $v ) {
 					$data ['yunfei'] += $v;
@@ -131,7 +132,7 @@ class Hyb extends Oa_Controller {
 			$data ['chucheng'] = round ( ($data ['dongti'] + $data ['canji'] / CHUCHENGBI) / $data ['jingzhong'] * 100, 3 );
 			$data ['pingjunjiage'] = round ( $data ['jine'] / $data ['jingzhong'], 3 );
 			$data ['pingjunyunfei'] = round ( $data ['yunfei'] / $data ['jingzhong'], 3 );
-			
+
 			if (!empty ( $data ['date'] )) {
 				$result = $this->hyb_mdl->insertDailyReport ( $data );
 				$this->_message ( date ( 'Y年m月d日', strtotime($data ['date']) ) . '报表生成成功', 'hyb/showDailyReport' );
@@ -139,7 +140,7 @@ class Hyb extends Oa_Controller {
 				$this->_message ( date ( 'Y年m月d日', strtotime($data ['date']) ) . '报表生成失败' );
 		}
 	}
-	
+
 	function _creatMonthReport_post() { //创建月报表
 		$month = $this->input->post ( 'month' );
 		$data ['dongti'] = 0;
@@ -154,15 +155,15 @@ class Hyb extends Oa_Controller {
 		$data ['days'] = 0;
 		if (! $month)
 			$month = date ( 'Y-m', strtotime ( "-1 month" ) );
-		
-		//TODO先判断是否已经存在该月份的日报表 若存在则返回显示
+        $data['month']=$month;
+		//先判断是否已经存在该月份的日报表 若存在则返回显示
 		$result = $this->hyb_mdl->getMonthReport ( $month );
 		if (! empty ( $result )) {
 			$this->_message ( date ( 'Y年m月', strtotime($data ['month'])) . '报表已存在，取消声称操作！' );
-			return TRUE;
+            //return TRUE;
 		}
-		
-		$result = $this->hyb_mdl->getDailyReportByMonth ( $month );
+
+		$result = $this->hyb_mdl->getDailyReportByMonth ( $data['month'] );
 		//var_dump ( $result );
 		foreach ( $result as $val ) { //操作数据自动生成相关数据
 			$data ['dongti'] += $val->dongti;
@@ -182,30 +183,60 @@ class Hyb extends Oa_Controller {
 			$data ['month'] = $month;
 			$data ['ripingjunchanliang'] = round ( $data ['jingzhong'] / $data ['days'], 3 );
 		}
-		//var_dump ( $data );
-		if (isset ( $data ['month'] )) {
+		if (!empty( $data ['month'] )) {//如果日期不为空则插入数据库 为空则抛出异常
 			$this->hyb_mdl->insertMonthReport ( $data );
-			$this->_message ( date ( 'Y年m月', strtotime($data ['month'])) ) . '报表生成成功', 'hyb/showMonthReport' );
+			$this->_message ( date ( 'Y年m月', strtotime($data ['month'])). '报表生成成功', 'hyb/showMonthReport' );
 		} else
 			$this->_message ( date ( 'Y年m月', strtotime($data ['month']) ) . '报表生成失败' );
 	}
-	
+
 	//创建报表结束
-	
+
 
 	//查看报表开始
-	function showMonthReport() {
-		$this->_showMontReport_post ();
+    function showDetailReport(){
+        $this->_showDetailReport_post();
+    }
+    function _showDetailReport_post(){
+        $date=$this->input->post('date');
+        if(!$date)
+            $date=date('Y-m-d',strtotime('-1 day'));
+        $data['date']=date('Y-m-d',strtotime($date));
+        $data['list']=$this->hyb_mdl->getDetailReportByDate($date);
+        //var_dump($data);
+        $this->_template('hyb/showDetailReport',$data);
+    }
+
+	function showDailyReport(){//所有查看报表都采用类似模式
+		$this->_showDailyReport_post();
 	}
-	
-	function _showMontReport_post() {
+	function _showDailyReport_post(){
+		$data=array();
+		$dateStart=$this->input->post('dateStart');
+		$dateEnd=$this->input->post('dateEnd');
+		if(!$dateStart) $dateStart=date('Y-m-d',strtotime('-7 days'));
+		if(!$dateEnd) $dateEnd=date('Y-m-d');
+		//调用数据库信息
+		$data['list']=$this->hyb_mdl->getDailyReportOfDays($dateStart,$dateEnd);
+		$this->_template('hyb/showDailyReport',$data);
+	}
+
+
+	function showMonthReport() {
+		$this->_showMonthReport_post ();
+	}
+
+	function _showMonthReport_post() {
 		$data = array ();
-		$month = $this->input->post ( 'month' );
-		if (! $month)
-			$month = date ( 'Y-m' );
-		$month = date ( 'Y-m', strtotime ( $month ) ); //数据过滤 可以不用此步骤但是为保险确保数据格式增加此操作
-		$data ['month'] = $month;
-		$data ['list'] = $this->hyb_mdl->getMonthReport ( $month );
+		$monthStart = $this->input->post ( 'monthStart' );
+        $monthEnd=$this->input->post('monthEnd');
+		if (! $monthStart)
+			$monthStart = date ( 'Y-m',strtotime('-12 months') );
+        if(!$monthEnd)
+            $monthEnd=date('Y-m',strtotime('-1 month'));
+		$monthStart = date ( 'Y-m',strtotime($monthStart) ); //数据过滤 可以不用此步骤但是为保险确保数据格式增加此操作
+        $monthEnd = date ( 'Y-m',strtotime($monthEnd) );
+		$data ['list'] = $this->hyb_mdl->getMonthReportOfMonths ( $monthStart,$monthEnd );
 		$this->_template ( 'hyb/showMonthReport', $data );
 	}
 }
