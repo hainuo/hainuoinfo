@@ -12,7 +12,7 @@ if (! defined ( 'EXT' )) {
 }
 
 abstract class Dili_Controller extends CI_Controller {
-	
+
 	function __construct() {
 		parent::__construct ();
 		$this->load->library ( 'dili/platform' );
@@ -28,7 +28,7 @@ abstract class Front_Controller extends Dili_Controller {
 		parent::__construct ();
 		$this->load->switch_theme ( 'on', setting ( 'site_theme' ) ); //将系统前台的views目录更改为/templates/default/文件夹
 	}
-	
+
 	function _template($template, $data = array()) {
 		$data ['tpl'] = $template;
 		$this->load->view ( 'default', $data ); //调用templates
@@ -38,7 +38,7 @@ abstract class Front_Controller extends Dili_Controller {
 
 //后台控制器扩展，如果您不了解其作用，请不要随意更改此处
 abstract class Admin_Controller extends Dili_Controller {
-	
+
 	function __construct() {
 		parent::__construct ();
 		date_default_timezone_set ( 'PRC' ); //强制时区为PRC,以后可增加配置变量
@@ -60,9 +60,9 @@ abstract class Admin_Controller extends Dili_Controller {
 		$this->_check_login ();
 		$this->load->library ( 'dili/acl' );
 		$this->load->library ( 'dili/plugin_manager' );
-	
+
 	}
-	
+
 	function _check_login() {
 		if (! $this->session->userdata ( 'uid' )) {
 			redirect ( setting ( 'backend_access_point' ) . '/login' );
@@ -70,18 +70,18 @@ abstract class Admin_Controller extends Dili_Controller {
 			$this->_admin = $this->db->select ( 'dili_admins.uid , dili_admins.username, dili_admins.role , dili_roles.name' )->from ( 'dili_admins' )->join ( 'dili_roles', 'dili_roles.id = dili_admins.role' )->where ( 'dili_admins.uid', $this->session->userdata ( 'uid' ) )->get ()->row ();
 		}
 	}
-	
+
 	function _template($template, $data = array()) {
 		$data ['tpl'] = $template;
 		$this->load->view ( 'sys_entry', $data );
 	}
-	
+
 	function _check_permit($action = '') {
 		if (! $this->acl->permit ( $action )) {
 			$this->_message ( '对不起，你没有访问这里的权限！', '', false );
 		}
 	}
-	
+
 	function _message($msg, $goto = '', $auto = true, $fix = '') {
 		if ($goto == '') {
 			$goto = isset ( $_SERVER ['HTTP_REFERER'] ) ? $_SERVER ['HTTP_REFERER'] : site_url ();
@@ -123,7 +123,7 @@ abstract class Oa_Controller extends Dili_Controller {
 		$this->_check_oa_login ();
 		$this->_getGroup ();
 	}
-	
+
 	function _check_oa_login() {
 		if (! $this->session->userdata ( 'ouid' )) {
 			redirect ( setting ( 'oa_access_point' ) . '/login' );
@@ -131,7 +131,7 @@ abstract class Oa_Controller extends Dili_Controller {
 			$this->_admin = $this->db->select ( 'dili_u_m_oa_users.id , dili_u_m_oa_users.name as username, dili_u_m_oa_users.power , dili_u_c_oa_power.name , dili_u_c_oa_power.act' )->from ( 'dili_u_m_oa_users' )->join ( 'dili_u_c_oa_power', 'dili_u_c_oa_power.classid = dili_u_m_oa_users.power' )->where ( 'dili_u_m_oa_users.id', $this->session->userdata ( 'ouid' ) )->get ()->row ();
 		}
 	}
-	
+
 	function _check_oa_permit() {
 		if (isset ( $this->_group [$this->_admin->power] )) {
 			$this->_message ( '对不起，你没有访问这里的权限！', '', false );
@@ -154,7 +154,7 @@ abstract class Oa_Controller extends Dili_Controller {
 		foreach ( $result->result () as $val ) {
 			$this->_group [$val->classid] = $val;
 		}
-	
+
 		//	var_dump($this->_group);
 	}
 	function _template($template, $data = array()) {
@@ -165,4 +165,16 @@ abstract class Oa_Controller extends Dili_Controller {
 //oa URI生成函数
 function oa_url($uri, $qs = '') {
 	return site_url ( setting ( 'oa_access_point' ) . '/' . $uri ) . ($qs == '' ? '' : '?' . $qs);
-}	
+}
+
+function   check_date(   $date   )//检验日期是否正确
+{
+    if   (   preg_match( "/[\d]{4}-[\d]{2}-[\d]{2}/iU ",   $date   )   )
+    {
+        return   true;
+    }
+    else
+    {
+        return   false;
+    }
+}

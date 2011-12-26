@@ -102,7 +102,7 @@ if($list)
                 <?php
                 }else{
 
-                    echo '<td colspan="11">该数据尚未生成，请生成后在操作!</td>'
+                    echo '<td colspan="11">该数据尚未生成，请生成后在操作!</td>';
                 }
                 ?>
             </tbody>

@@ -13,11 +13,11 @@ class Hyb extends Oa_Controller {
 		$act = $this->input->post ( 'act' );
 	}
 
-	function detailReport() { //汇总日报表
+	function detailReport() { //汇总表  此方法用于汇总表 货源部首页用
 		$this->_dailyReport_post ();
 	}
 
-	function _detailReport_post() {
+	function _detailReport_post() {//TODO 此方法用于汇总报表 货源部首页用
 		$data = array ();
 		$date = $this->input->post ( 'date' );
 		if (! $date)
@@ -194,15 +194,23 @@ class Hyb extends Oa_Controller {
 
 
 	//查看报表开始
-    function showDetailReport(){
-        $this->_showDetailReport_post();
+    function showDetailReport($date=''){
+        $this->_showDetailReport_post($date);
     }
-    function _showDetailReport_post(){
-        $date=$this->input->post('date');
+    function _showDetailReport_post($date=''){
         if(!$date)
+            $date=$this->input->post('date');
+
+        $result=check_date($date);//检查date是不是符合要求
+
+        if($date && !$result){
             $date=date('Y-m-d',strtotime('-1 day'));
+            $this->_message('参数错误，跳转至'.date('Y年m月d日',strtotime($date)).'详细报表页面','hyb/showDetailReport/'.$date);
+        }
+
         $data['date']=date('Y-m-d',strtotime($date));
         $data['list']=$this->hyb_mdl->getDetailReportByDate($date);
+        $data['report']=$this->hyb_mdl->getDailyReport($date);
         //var_dump($data);
         $this->_template('hyb/showDetailReport',$data);
     }

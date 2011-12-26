@@ -9,18 +9,18 @@
 			$this->_check_permit();
 			$this->load->model('dili/category_mdl');
 		}
-				
+
 		function view()
 		{
 			$data['list'] = $this->category_mdl->get_category_models();
 			$this->_template('category_list',$data);
 		}
-		
+
 		function add()
 		{
 			$this->_add_post();
 		}
-		
+
 		function _add_post()
 		{
 			if($this->_validate_model_form() == TRUE)
@@ -35,9 +35,9 @@
 				$this->category_mdl->add_new_category($data);
 				//更新缓存
 				update_cache('category',$data['name']);
-				
+
 				update_cache('menu');
-				
+
 				$this->_message('分类模型添加成功!','category/view',true);
 			}
 			else
@@ -45,12 +45,12 @@
 				$this->_template('category_add');
 			}
 		}
-		
+
 		function edit( $id = 0 )
 		{
 			$this->_edit_post($id);
 		}
-		
+
 		function del( $id = 0)
 		{
 			$model = $this->category_mdl->get_category_model_by_id($id);
@@ -63,12 +63,12 @@
 			}
 			else
 			{
-				$this->_message('不存在的分类模型!','',false);	
+				$this->_message('不存在的分类模型!','',false);
 			}
-			
+
 		}
-		
-		
+
+
 		function _edit_post( $id = 0)
 		{
 			$target_model = $this->category_mdl->get_category_model_by_id($id);
@@ -92,7 +92,7 @@
 				$this->_template('category_edit',array('model'=>$target_model));
 			}
 		}
-		
+
 		function _validate_model_form($name = '')
 		{
 			$this->load->library('form_validation');
@@ -115,20 +115,20 @@
 				return TRUE;
 			}
 		}
-		
+
 		function _check_model_name( $name)
 		{
 			if($this->category_mdl->get_category_model_by_name($name))
 			{
-				$this->form_validation->set_message('_check_model_name', '已经存在的分类模型标识！');	
+				$this->form_validation->set_message('_check_model_name', '已经存在的分类模型标识！');
 				return FALSE;
 			}
 			else
 			{
-				return TRUE;	
+				return TRUE;
 			}
 		}
-		
+
 		function fields( $id = 0 )
 		{
 			$data['model'] = $this->category_mdl->get_category_model_by_id($id);
@@ -138,12 +138,12 @@
 			$this->load->library('dili/form');
 			$this->_template('fields_list',$data);
 		}
-		
+
 		function add_field( $id = 0 )
 		{
 			$this->_add_field_post($id);
 		}
-		
+
 		function _add_field_post($id = 0)
 		{
 			$data['model'] = $this->category_mdl->get_category_model_by_id($id);
@@ -156,19 +156,19 @@
 			else
 			{
 				$this->category_mdl->add_category_field($data['model'] , $this->_get_post_data());
-				
+
 				update_cache('category',$data['model']->name);
-				
+
 				$this->_message('分类模型字段添加成功!','category/fields/'.$id,true);
 			}
-				
+
 		}
-		
+
 		function edit_field( $id = 0 )
 		{
 			$this->_edit_field_post($id);
 		}
-		
+
 		function _edit_field_post( $id = 0)
 		{
 			$data['field'] = $this->category_mdl->get_field_by_id( $id );
@@ -179,17 +179,17 @@
 			if($this->_validate_field_form($data['field']->model , $data['field']->name))
 			{
 				$this->category_mdl->edit_category_field($data['model'],$data['field'],$this->_get_post_data());
-				
+
 				update_cache('category',$data['model']->name);
-				
-				$this->_message('分类模型字段修改成功!','category/edit_field/'.$id,true);		
+
+				$this->_message('分类模型字段修改成功!','category/edit_field/'.$id,true);
 			}
 			else
-			{	
-				$this->_template('fields_edit',$data);	
+			{
+				$this->_template('fields_edit',$data);
 			}
 		}
-		
+
 		function del_field( $id = 0 )
 		{
 			$field = $this->category_mdl->get_field_by_id( $id );
@@ -198,40 +198,40 @@
 			!$model && $this->_message('不存在的分类模型!','',false);
 			if($field && $model)
 			{
-				
+
 				$this->category_mdl->del_category_field($model , $field);
-				
+
 				update_cache('category',$model->name);
 			}
-			$this->_message('字段删除成功!','category/fields/'.$model->id,true);	
+			$this->_message('字段删除成功!','category/fields/'.$model->id,true);
 		}
-		
+
 		function _check_field_name( $name )
 		{
 			if($this->category_mdl->check_field_unique($this->model , $name))
 			{
-				$this->form_validation->set_message('_check_field_name', '已经存在的字段标识！');	
+				$this->form_validation->set_message('_check_field_name', '已经存在的字段标识！');
 				return FALSE;
 			}
 			else
 			{
-				return TRUE;	
+				return TRUE;
 			}
 		}
-		
+
 		function _check_field_name_valid( $name )
 		{
 			if($name == 'classid' || $name == 'parentid' || $name == 'path' || $name == 'level')
 			{
-				$this->form_validation->set_message('_check_field_name_valid', '字段标识不能为classid或者parentid,或者path或者level！');	
+				$this->form_validation->set_message('_check_field_name_valid', '字段标识不能为classid或者parentid,或者path或者level！');
 				return FALSE;
 			}
 			else
 			{
-				return TRUE;	
+				return TRUE;
 			}
 		}
-		
+
 		function _validate_field_form($name = '')
 		{
 			$this->load->library('form_validation');
@@ -257,9 +257,9 @@
 			else
 			{
 				return TRUE;
-			}	
+			}
 		}
-		
+
 		function _get_post_data()
 		{
 			$data['name'] = $this->input->post('name');
@@ -277,13 +277,13 @@
 			$data['order'] = $this->input->post('order');
 			if( $data['rules'] &&  is_array($data['rules']) )
 			{
-				$data['rules'] = implode(',',$data['rules']);	
+				$data['rules'] = implode(',',$data['rules']);
 			}
 			else
 			{
 				$data['rules'] = '';
 			}
-			return $data;	
+			return $data;
 		}
 
 	}
