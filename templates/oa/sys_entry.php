@@ -4,10 +4,6 @@
 <title><?php echo setting('oa_title'); ?>----Powered By DiliCMS</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="<?php echo base_url().'admincp/default/'?>images/admin.css" />
-<script language="javascript" src="<?php echo base_url()."/templates/oa/js/transport.js"?>"></script>
-<script language="javascript" src="<?php echo base_url()."/templates/oa/js/utils.js"?>"></script>
-<script language="javascript" src="<?php echo base_url()."/templates/oa/js/listtable.js"?>"></script>
-<!-- 以上三条js调用必须放在前面不能够放在jquery之后 因为这会跟jquery冲突 -->
 <script language="javascript" src="<?php echo base_url()."/templates/oa/js/LodopFuncs.js"?>"></script>
 <object id="LODOP" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width="0" height="0">
 	<embed id="LODOP_EM" TYPE="application/x-print-lodop" width="0" height="0" PLUGINSPAGE="<?php echo base_url()."/templates/oa/js/install_lodop.exe"?>"></embed>

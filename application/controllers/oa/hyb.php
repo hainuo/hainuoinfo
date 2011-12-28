@@ -47,7 +47,6 @@ class Hyb extends Oa_Controller {
                 $data = '';
             $this->_template('hyb/addreport', $data);
         } else {
-            $this->load->model('oa/hyb_mdl');
             $data ['date'] = $this->input->post('date');
             $carno = $this->input->post('carNo');
             $data ['dongti'] = $this->input->post('dongti');
@@ -67,21 +66,28 @@ class Hyb extends Oa_Controller {
             $data ['yangzhihu'] = $this->input->post('yangzhihu');
             $data ['diqu'] = $this->input->post('diqu');
             $data ['choujino'] = $this->input->post('choujiNo');
+            $carNo = array();
             foreach ($carno as $key => $val) {
-                if ($val)
+                if ($val) {
                     $yunfei [$val] = $yf [$key];
+                    $carNo[] = $val;
+                }
             }
+            $ywy = array(); //必须定义次数组；防止业务员数组无值
             foreach ($yewuyuan as $val) {
                 if ($val)
-                    $ywy [] = $val;
+                    $ywy[] = $val;
             }
-            $data ['carno'] = serialize($carno);
+            $data ['carno'] = serialize($carNo);
             $data ['yunfei'] = serialize($yunfei);
-            $data ['yewuyuan'] = serialize($ywy);
+
             //业务员为空时候需要对业务员数组赋值为胴体
-            $yewuyuan = implode('', $data['yewuyuan']);
-            if (empty($yewuyuan))
-                $data['yewuyuan'][0] = '胴体';
+            $ywyT = implode('', $ywy);
+            if (empty($ywyT)) {
+                $y[0] = '胴体';
+            }
+            $data ['yewuyuan'] = serialize($ywy);
+            //var_dump($data, $ywy);
             $this->hyb_mdl->insertDetailReport($data);
             $this->_message('信息录入成功!');
         }
@@ -201,11 +207,11 @@ class Hyb extends Oa_Controller {
         if ($this->input->get('is_ajax') == 1) {//由于ajax提交使用的是post方法所以必须在此处进行判断
             $this->editDetailReport();
         } else {//如果不是ajax提交数据
-            if (!$date)
+            if (!$date) {//如果没有传递过参数来则通过post方法获取
                 $date = $this->input->post('date');
-            $result = check_date($date); //检查date是不是符合要求
-
-            if ($date && !$result) {
+                $result = check_date($date); //检查date是不是符合要求
+            }
+            if (!$date && !$result) {//如果通过post仍没有获取到数据则自动跳转至前一天的详细报表页面
                 $date = date('Y-m-d', strtotime('-1 day'));
                 $this->_message('参数错误，跳转至' . date('Y年m月d日', strtotime($date)) . '详细报表页面', 'hyb/showDetailReport/' . $date);
             }
@@ -256,10 +262,21 @@ class Hyb extends Oa_Controller {
     //开始编辑明细或者更新生成的日报表
     //TODO 是否允许存在多次相同的月报表 日报表 年报表
     function editDetailReport() {//ajax提交过来的数据进行处理用于修改单个字段信息
-
-        $res = array('error' => 0, 'message' => 0, 'content' => '小娃娃,小娃娃,小娃娃,小娃娃,小娃娃,小娃娃');
+        $act = $this->input->post('act');
+        $filedname = substr($act, 5);
+        $val = $this->input->post('val');
+        $id = $this->input->post('id');
+        if ($filedname && $val && $id) {
+            $result=$this->hyb_mdl->editDetailReport($filedname, $val, $id);
+            if ($result==TRUE)
+                $res = array('error' => 0, 'message' => 0, 'content' => $val);
+            else {
+                $res = array('error' => 0, 'message' => 0, 'content' => $val);
+            }
+        } else {
+            $res = array('error' => 1, 'message' => '参数错误', 'content' => $val);
+        }
         $val = json_encode($res);
-
         echo $val;
     }
 

@@ -28,7 +28,7 @@ listTable.edit = function(obj, act, id)
   {
     return;
   }
-  alert('业务员名之间必须使用英文格式下的","间隔否则自动生成奖罚的时候会出现错误判断!');
+  if(act=='edit_yewuyuan')alert('业务员名之间必须使用英文格式下的","间隔否则自动生成奖罚的时候会出现错误判断!');
   /* 保存原始的内容 */
   var org = obj.innerHTML;
   var val = Browser.isIE ? obj.innerText : obj.textContent;

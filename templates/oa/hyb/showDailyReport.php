@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="<?php echo base_url() . 'templates/oa/' ?>images/oa.css" />
 <div class="headbar">
 	<div class="position">
 		<span>查看日报表</span>

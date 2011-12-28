@@ -1,5 +1,10 @@
-<link rel="stylesheet"
-      href="<?php echo base_url() . 'templates/oa/' ?>images/oa.css" />
+<link rel="stylesheet" href="<?php echo base_url() . 'templates/oa/' ?>images/oa.css" />
+<script language="javascript" src="<?php echo base_url() . "/templates/oa/js/transport.js" ?>"></script>
+<script language="javascript" src="<?php echo base_url() . "/templates/oa/js/utils.js" ?>"></script>
+<script language="javascript" src="<?php echo base_url() . "/templates/oa/js/listtable.js" ?>"></script>
+<!-- 以上三条会跟jquery冲突  所以会造成在填写报表时jquery代码不执行的错误 为避免放置于此处 -->
+<!-- TODO 将上面三个js删掉重新编写代码使用jquery方式提交数据 -->
+<link rel="stylesheet" href="<?php echo base_url() . 'templates/oa/' ?>images/oa.css" />
 <div class="headbar">
     <div class="position">
         <span><?php echo date('Y年m月d日', strtotime($date)); ?> 毛鸡收购日报表</span>
@@ -38,37 +43,37 @@
                 </tr>
                 <?php
                 if ($list)
-                foreach ($list as $val) {
-                ?>
-                <tr>
-                    <td><?php
+                    foreach ($list as $val) {
+                        ?>
+                        <tr>
+                            <td><?php
                 if ($val->yunfei) {
-                foreach (unserialize($val->yunfei) as $k => $v) {
-                if ($k) {
-                echo '<div class="car">' . $k . "(<span class='yunfei'>" . $v . "</span>)</div>";
+                    foreach (unserialize($val->yunfei) as $k => $v) {
+                        if ($k) {
+                            echo '<div class="car">' . $k . "(<span class='yunfei'>" . $v . "</span>)</div>";
+                        }
+                    }
                 }
-                }
-                }
-                ?></td>
-                    <td><span onclick="javascript:listTable.edit(this, 'edit_diqu', <?php echo $val->id; ?>)"><?php echo $val->diqu; ?></span></td>
-                    <td><span onclick="javascript:listTable.edit(this, 'edit_yangzhihu', <?php echo $val->id; ?>)"><?php echo $val->yangzhihu; ?></span></td>
-                    <td><span onclick="javascript:listTable.edit(this, 'edit_dongti', <?php echo $val->id; ?>)"><?php echo $val->dongti; ?></span></td>
-                    <td><span onclick="javascript:listTable.edit(this, 'edit_canji', <?php echo $val->id; ?>)"><?php echo $val->canji; ?></span></td>
-                    <td><span onclick="javascript:listTable.edit(this, 'edit_dongtino', <?php echo $val->id; ?>)"><?php echo $val->dongtino; ?></span></td>
-                    <td><span onclick="javascript:listTable.edit(this, 'edit_diqu', <?php echo $val->id; ?>)"><?php echo $val->canjino; ?></span></td>
-                    <td><span onclick="javascript:listTable.edit(this, 'edit_diqu', <?php echo $val->id; ?>)"><?php echo $val->choujino; ?></span></td>
-                    <td><span onclick="javascript:listTable.edit(this, 'edit_diqu', <?php echo $val->id; ?>)"><?php echo $val->chucheng; ?></span></td>
-                    <td><span onclick="javascript:listTable.edit(this, 'edit_diqu', <?php echo $val->id; ?>)"><?php echo $val->danjia; ?></span></td>
-                    <td><span onclick="javascript:listTable.edit(this, 'edit_diqu', <?php echo $val->id; ?>)"><?php echo $val->jine; ?></span></td>
-                    <td><span onclick="javascript:listTable.edit(this, 'edit_diqu', <?php echo $val->id; ?>)"  title="业务员名之间必须使用英文格式下的','间隔否则自动生成奖罚的时候会出现错误判断" ><?php
-                            $yewuyuan=unserialize($val->yewuyuan);
-                            $yewuyuan=implode(',', $yewuyuan);
-                            echo trim($yewuyuan);
-                            ?></span></td>
-                    <td><?php echo $val->jingxiaoshang; ?></td>
-                </tr>
-                <?php }else
-                echo '<tr><td colspan="13">暂无数据</td></tr>' ?>
+                        ?></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_diqu', <?php echo $val->id; ?>)"><?php echo $val->diqu; ?></span></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_yangzhihu', <?php echo $val->id; ?>)"><?php echo $val->yangzhihu; ?></span></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_dongti', <?php echo $val->id; ?>)"><?php echo $val->dongti; ?></span></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_canji', <?php echo $val->id; ?>)"><?php echo $val->canji; ?></span></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_dongtino', <?php echo $val->id; ?>)"><?php echo $val->dongtino; ?></span></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_canjino', <?php echo $val->id; ?>)"><?php echo $val->canjino; ?></span></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_choujino', <?php echo $val->id; ?>)"><?php echo $val->choujino; ?></span></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_chucheng', <?php echo $val->id; ?>)"><?php echo $val->chucheng; ?></span></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_danjia', <?php echo $val->id; ?>)"><?php echo $val->danjia; ?></span></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_jine', <?php echo $val->id; ?>)"><?php echo $val->jine; ?></span></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_yewuyuan', <?php echo $val->id; ?>)"  title="业务员名之间必须使用英文格式下的','间隔否则自动生成奖罚的时候会出现错误判断" ><?php
+                        $yewuyuan = unserialize($val->yewuyuan);
+                        $yewuyuan = implode(',', $yewuyuan);
+                        echo trim($yewuyuan);
+                        ?></span></td>
+                            <td><span onclick="javascript:listTable.edit(this, 'edit_jingxiaoshang', <?php echo $val->id; ?>)"><?php echo $val->jingxiaoshang; ?></span></td>
+                        </tr>
+                    <?php }else
+                    echo '<tr><td colspan="13">暂无数据</td></tr>' ?>
             </tbody>
         </table>
         <table class="list_table">
@@ -102,7 +107,6 @@
                     </tr>
                     <?php
                 } else {
-
                     echo '<tr><td colspan="11">该数据尚未生成，请生成后在操作!</td></tr>';
                 }
                 ?>
