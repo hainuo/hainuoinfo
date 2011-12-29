@@ -279,5 +279,4 @@ class Hyb extends Oa_Controller {
         $val = json_encode($res);
         echo $val;
     }
-
 }
