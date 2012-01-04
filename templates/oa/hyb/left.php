@@ -17,4 +17,3 @@
 			class="<?php if($this->uri->rsegment(2)=='creatReport')  echo 'selected';   ?>"><a
 			href="<?php  echo oa_url('hyb/creatReport')?>">生成报表</a></li>
 	</ul></li>
-

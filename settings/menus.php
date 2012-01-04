@@ -167,6 +167,13 @@ $setting['menus']=array (
             'extra' => 'oa_users',
             'menu_name' => 'oa用户表',
           ),
+          2 => 
+          array (
+            'class_name' => 'content',
+            'method_name' => 'view',
+            'extra' => 'hyb_rimingxi',
+            'menu_name' => '[货源部]日明细表',
+          ),
         ),
       ),
       1 => 
@@ -190,6 +197,13 @@ $setting['menus']=array (
             'method_name' => 'view',
             'extra' => 'oa_power',
             'menu_name' => 'oa权限分类',
+          ),
+          2 => 
+          array (
+            'class_name' => 'category_content',
+            'method_name' => 'view',
+            'extra' => 'hyb_diqu',
+            'menu_name' => '[货源]地区',
           ),
         ),
       ),

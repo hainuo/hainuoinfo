@@ -7,8 +7,28 @@ $setting['active_plugins']=array (
       'name' => 'dili_diy_variable',
       'access' => '0',
     ),
+    'helloworld' => 
+    array (
+      'name' => 'helloworld',
+      'access' => '0',
+    ),
+    'dili_wysiwyg' => 
+    array (
+      'name' => 'dili_wysiwyg',
+      'access' => '0',
+    ),
   ),
   'model_plugins' => 
   array (
+    'helloworld' => 
+    array (
+      'name' => 'helloworld',
+      'access' => '0',
+    ),
+    'dili_wysiwyg' => 
+    array (
+      'name' => 'dili_wysiwyg',
+      'access' => '0',
+    ),
   ),
 );
