@@ -157,8 +157,8 @@ $setting['menus']=array (
           array (
             'class_name' => 'content',
             'method_name' => 'view',
-            'extra' => 'news',
-            'menu_name' => '新闻中心',
+            'extra' => 'hyb_mingxibiao',
+            'menu_name' => '[货源]日明细表',
           ),
           1 => 
           array (
@@ -171,8 +171,8 @@ $setting['menus']=array (
           array (
             'class_name' => 'content',
             'method_name' => 'view',
-            'extra' => 'hyb_rimingxi',
-            'menu_name' => '[货源部]日明细表',
+            'extra' => 'qq_dongti_rimingxi',
+            'menu_name' => '[前区]胴体明细表',
           ),
         ),
       ),
@@ -188,17 +188,10 @@ $setting['menus']=array (
           array (
             'class_name' => 'category_content',
             'method_name' => 'view',
-            'extra' => 'news',
-            'menu_name' => '新闻分类',
-          ),
-          1 => 
-          array (
-            'class_name' => 'category_content',
-            'method_name' => 'view',
             'extra' => 'oa_power',
             'menu_name' => 'oa权限分类',
           ),
-          2 => 
+          1 => 
           array (
             'class_name' => 'category_content',
             'method_name' => 'view',

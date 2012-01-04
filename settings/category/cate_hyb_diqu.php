@@ -9,6 +9,24 @@ $setting['cate_models']['hyb_diqu']=array (
   'built_in' => '0',
   'fields' => 
   array (
+    12 => 
+    array (
+      'id' => '12',
+      'name' => 'start',
+      'description' => '吨位下线',
+      'model' => '6',
+      'type' => 'int',
+      'length' => '3',
+      'values' => '',
+      'width' => '30',
+      'height' => '30',
+      'rules' => 'required',
+      'ruledescription' => '',
+      'searchable' => '1',
+      'listable' => '1',
+      'order' => '0',
+      'editable' => '1',
+    ),
     10 => 
     array (
       'id' => '10',
@@ -23,9 +41,9 @@ $setting['cate_models']['hyb_diqu']=array (
       'rules' => 'required',
       'ruledescription' => '',
       'searchable' => '1',
-      'listable' => '0',
+      'listable' => '1',
       'order' => '0',
-      'editable' => '0',
+      'editable' => '1',
     ),
     11 => 
     array (
@@ -43,15 +61,58 @@ $setting['cate_models']['hyb_diqu']=array (
       'searchable' => '0',
       'listable' => '1',
       'order' => '0',
-      'editable' => '0',
+      'editable' => '1',
+    ),
+    13 => 
+    array (
+      'id' => '13',
+      'name' => 'end',
+      'description' => '吨位上线',
+      'model' => '6',
+      'type' => 'int',
+      'length' => '3',
+      'values' => '',
+      'width' => '60',
+      'height' => '30',
+      'rules' => 'required',
+      'ruledescription' => '',
+      'searchable' => '1',
+      'listable' => '1',
+      'order' => '1',
+      'editable' => '1',
+    ),
+    15 => 
+    array (
+      'id' => '15',
+      'name' => 'beizhu',
+      'description' => '备注',
+      'model' => '6',
+      'type' => 'textarea',
+      'length' => '1000',
+      'values' => '',
+      'width' => '300',
+      'height' => '50',
+      'rules' => '',
+      'ruledescription' => '',
+      'searchable' => '1',
+      'listable' => '1',
+      'order' => '2',
+      'editable' => '1',
     ),
   ),
   'listable' => 
   array (
-    0 => '11',
+    0 => '12',
+    1 => '10',
+    2 => '11',
+    3 => '13',
+    4 => '15',
   ),
   'searchable' => 
   array (
-    0 => '10',
+    0 => '12',
+    1 => '10',
+    2 => '13',
+    3 => '15',
   ),
 );
