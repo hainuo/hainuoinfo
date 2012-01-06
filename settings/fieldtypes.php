@@ -20,6 +20,7 @@ $setting=array (
   ),
   'extra_fieldtypes' => 
   array (
+    'test' => '测试字段(VARCHAR)',
   ),
   'validation' => 
   array (

@@ -6,4 +6,5 @@ $setting=array (
   'oa_access_point' => 'oa',
   'oa_title' => '办公系统 —— 无棣伊德圆畜牧有限公司',
   'oa_logo' => 'images/logo.gif',
+  'oa_canjizhesuanlv' => '5',
 );
