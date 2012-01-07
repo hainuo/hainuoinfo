@@ -46,10 +46,10 @@
 			$username = $this->input->post('name',true);
 			$password = $this->input->post('pass',true);
 			$verify=$this->input->post('verify',true);
-			/*if(!$this->oa_user_mdl->checkCaptcha($verify)){
+			if(!$this->oa_user_mdl->checkCaptcha($verify)){
 				$this->session->set_flashdata('error', "验证码错误，请重新填写验证码!");
 				redirect(setting('oa_access_point').'/login');	
-			}*/
+			}
 			if($username && $password)
 			{
 				$admin = $this->oa_user_mdl->get_full_user_by_username( $username );
@@ -57,7 +57,7 @@
 				{
 					if( $admin->pass == $password )//需要增加md5判断
 					{
-						if($admin->power == 1 && !setting('oa_root_access'))
+						if($admin->power == 11 && !setting('oa_root_access'))
 						{
 							$this->session->set_flashdata('error', "系统限制了ROOT用户登录,请联系管理员!");
 							redirect(setting('oa_access_point').'/login');	

@@ -2,7 +2,7 @@
 	href="<?php echo base_url().'templates/oa/'?>images/oa.css" />
 <div class="headbar">
 	<div class="position">
-		<span>伊德圆畜牧有限公司报表生产系统</span>
+		<span>伊德圆畜牧有限公司报表生成系统</span>
 	</div>
 </div>
 <div class="content_box">
